@@ -6,6 +6,6 @@
 </script>
 
 <li>
-  <a {href} target="_blank">{title}</a><br />
+  <a {href} target="_blank">{title}</a> <small style="color: gray;">coldhawaiigames.com</small><br />
   <small>1 vote by rawi <Time relative timestamp={created} /></small>
 </li>
