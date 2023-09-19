@@ -3,5 +3,5 @@
 </script>
 
 <ul>
-  <Link title="Cold Hawaii Games 2023" href="https://coldhawaiigames.com/"/>
+  <Link title="Cold Hawaii Games 2023" href="https://coldhawaiigames.com/" created="{new Date()}"/>
 </ul>
