@@ -6,6 +6,6 @@
 </script>
 
 <li>
-  <a {href}>{title} target="_blank"</a><br />
+  <a {href} target="_blank">{title}</a><br />
   <small>1 vote by rawi <Time relative timestamp={created} /></small>
 </li>
