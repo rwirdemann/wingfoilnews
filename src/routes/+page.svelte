@@ -1,6 +1,4 @@
 <script>
-  // @ts-nocheck
-
   import Link from "../components/Link.svelte";
   export let data = [];
 </script>
