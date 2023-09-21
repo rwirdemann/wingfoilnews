@@ -10,7 +10,7 @@
   }
 </script>
 
-<li>
+<li style="list-style: none;">
   <a {href} target="_blank">{title}</a>
   <small style="color: gray;">via {extractDomain(href)}</small><br />
   <small>1 vote by rawi <Time relative timestamp={created} /></small>
