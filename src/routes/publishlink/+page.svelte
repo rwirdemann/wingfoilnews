@@ -3,7 +3,22 @@
   let title = "";
 
   async function doPost() {
-    goto("/success");
+    let link = {
+      title: "New Link",
+      uri: "https://wingbuddies.de",
+    };
+
+    let body = JSON.stringify(link);
+    console.log(body);
+    const res = await fetch("https://news.wingbuddies.de:8087/links", {
+      method: "POST",
+      body: body,
+    });
+    if (res.ok) {
+      goto("/success");
+    } else {
+      console.log("error");
+    }
   }
 </script>
 
