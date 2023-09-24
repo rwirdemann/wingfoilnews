@@ -1,11 +1,29 @@
 <script context="module">
   import { goto } from "$app/navigation";
   let title = "";
+  let uri = "";
+
+  function isValidUrl(uriString) {
+    try {
+      return Boolean(new URL(uriString));
+    } catch (e) {
+      return false;
+    }
+  }
 
   async function doPost() {
+    if (title.length == 0 || uri.length == 0) {
+      return;
+    }
+
+    if (!isValidUrl(uri)) {
+      alert("URL has invalid format")
+      return;
+    }
+
     let link = {
-      title: "New Link",
-      uri: "https://wingbuddies.de",
+      title: title,
+      uri: uri,
     };
 
     let body = JSON.stringify(link);
@@ -17,7 +35,7 @@
     if (res.ok) {
       goto("/success");
     } else {
-      console.log("error");
+      console.log("error posting new link");
     }
   }
 </script>
@@ -30,8 +48,15 @@
     bind:value={title}
     id="title"
     placeholder="Cold Hawaii Games"
+    required
   />
   <label for="url">URL</label>
-  <input size="40" id="url" placeholder="https://coldhawaiigames.com" />
+  <input
+    size="40"
+    id="uri"
+    bind:value={uri}
+    placeholder="https://coldhawaiigames.com"
+    required
+  />
   <input on:click={doPost} type="submit" value="Publish" />
 </form>
