@@ -1,62 +1,56 @@
 <script context="module">
-  import { goto } from "$app/navigation";
-  let title = "";
-  let uri = "";
+    import {goto} from "$app/navigation";
 
-  function isValidUrl(uriString) {
-    try {
-      return Boolean(new URL(uriString));
-    } catch (e) {
-      return false;
-    }
-  }
+    let title = "";
+    let uri = "";
 
-  async function doPost() {
-    if (title.length == 0 || uri.length == 0) {
-      return;
+    function isValidUrl(uriString) {
+        try {
+            return Boolean(new URL(uriString));
+        } catch (e) {
+            return false;
+        }
     }
 
-    if (!isValidUrl(uri)) {
-      alert("URL has invalid format")
-      return;
-    }
+    async function doPost() {
+        if (title.length == 0 || uri.length == 0) {
+            return;
+        }
 
-    let link = {
-      title: title,
-      uri: uri,
-    };
+        if (!isValidUrl(uri)) {
+            alert("URL has invalid format")
+            return;
+        }
 
-    let body = JSON.stringify(link);
-    console.log(body);
-    const res = await fetch("https://news.wingbuddies.de:8087/links", {
-      method: "POST",
-      body: body,
-    });
-    if (res.ok) {
-      goto("/success");
-    } else {
-      console.log("error posting new link");
+        let link = {
+            title: title,
+            uri: uri,
+        };
+
+        let body = JSON.stringify(link);
+        console.log(body);
+        const res = await fetch("https://news.wingbuddies.de:8087/links", {
+            method: "POST",
+            body: body,
+        });
+        if (res.ok) {
+            goto("/success");
+        } else {
+            console.log("error posting new link");
+        }
     }
-  }
 </script>
 
-<h3>Publish Link</h3>
 <form>
-  <label for="title">Title</label>
-  <input
-    size="40"
-    bind:value={title}
-    id="title"
-    placeholder="Cold Hawaii Games"
-    required
-  />
-  <label for="url">URL</label>
-  <input
-    size="40"
-    id="uri"
-    bind:value={uri}
-    placeholder="https://coldhawaiigames.com"
-    required
-  />
-  <input on:click={doPost} type="submit" value="Publish" />
+    <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input class="form-control" bind:value={title} id="title" placeholder="Cold Hawaii Games" required/>
+    </div>
+
+    <div class="mb-3">
+        <label for="url" class="form-label">URL</label>
+        <input class="form-control" bind:value={uri} id="url" placeholder="https://coldhawaiigames.com" required/>
+    </div>
+
+    <button on:click={doPost} type="submit" class="btn btn-primary">Publish</button>
 </form>
