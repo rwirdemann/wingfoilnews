@@ -44,7 +44,7 @@
 <form>
     <div class="mb-3">
         <label for="title" class="form-label">Title</label>
-        <input class="form-control" bind:value={title} id="title" placeholder="Cold Hawaii Games" required/>
+        <input class="form-control" bind:value={title} id="title" placeholder="Cold Hawaii Games" required autofocus/>
     </div>
 
     <div class="mb-3">
