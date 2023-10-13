@@ -9,11 +9,11 @@
     %sveltekit.head%
 </head>
 <body data-sveltekit-preload-data="hover">
-<div class="container">
+<div class="container mt-2">
     <h1>Wingfoil News</h1>
-    <nav class="nav">
-        <a class="nav-link" href="/">Popular</a>
-        <a class="nav-link" href="/publishlink">Publish Link</a>
+    <ul class="nav">
+        <li><a class="nav-link" href="/">Popular</a></li>
+        <li><a class="nav-link" href="/publishlink">Publish Link</a></li>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Tags
@@ -23,7 +23,7 @@
                 <li><a class="dropdown-item" href="#">Video</a></li>
             </ul>
         </li>
-    </nav>
+    </ul>
     <main>
         <hr>
         <div style="display: contents">%sveltekit.body%</div>
