@@ -3,6 +3,7 @@
 
     let title = "";
     let uri = "";
+    let tags = "";
 
     function isValidUrl(uriString) {
         try {
@@ -10,6 +11,16 @@
         } catch (e) {
             return false;
         }
+    }
+
+    function toArray(tags) {
+        if (!tags) {
+            return []
+        }
+
+        return tags.split(",").map(t => {
+            return t.trim()
+        })
     }
 
     async function doPost() {
@@ -25,6 +36,7 @@
         let link = {
             title: title,
             uri: uri,
+            tags: toArray(tags)
         };
 
         let body = JSON.stringify(link);
@@ -50,6 +62,11 @@
     <div class="mb-3">
         <label for="url" class="form-label">URL</label>
         <input class="form-control" bind:value={uri} id="url" placeholder="https://coldhawaiigames.com" required/>
+    </div>
+
+    <div class="mb-3">
+        <label for="tags" class="form-label">Tags</label>
+        <input class="form-control" bind:value={tags} id="tags" placeholder="Event, Test, Report" required/>
     </div>
 
     <button on:click={doPost} type="submit" class="btn btn-primary">Publish</button>
