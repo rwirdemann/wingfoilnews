@@ -6,7 +6,7 @@
 <ol>
   {#if data.links !== null && data.links.length > 0}
     {#each data.links as l}
-      <Link title={l.title} href={l.uri} tags={l.tags} created={l.created} />
+      <Link title={l.title} href={l.uri} tags={l.tags} created={l.created} details={false}/>
     {/each}
   {/if}
 </ol>
