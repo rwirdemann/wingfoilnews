@@ -56,17 +56,17 @@
 <form>
     <div class="mb-3">
         <label for="title" class="form-label">Title</label>
-        <input class="form-control" bind:value={title} id="title" placeholder="Cold Hawaii Games" required autofocus/>
+        <input class="form-control" bind:value={title} id="title" placeholder="e.g. Cold Hawaii Games" required autofocus/>
     </div>
 
     <div class="mb-3">
         <label for="url" class="form-label">URL</label>
-        <input class="form-control" bind:value={uri} id="url" placeholder="https://coldhawaiigames.com" required/>
+        <input class="form-control" bind:value={uri} id="url" placeholder="e.g. https://coldhawaiigames.com" required/>
     </div>
 
     <div class="mb-3">
         <label for="tags" class="form-label">Tags</label>
-        <input class="form-control" bind:value={tags} id="tags" placeholder="Event, Test, Report" required/>
+        <input class="form-control" bind:value={tags} id="tags" placeholder="e.g. blog, group, event, test" required/>
     </div>
 
     <button on:click={doPost} type="submit" class="btn btn-primary">Publish</button>
