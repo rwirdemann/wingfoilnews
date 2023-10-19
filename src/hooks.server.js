@@ -1,5 +1,7 @@
 /** @type {import('@sveltejs/kit').Handle} */
 export async function handle({event, resolve}) {
+
+
     const { headers } = event.request;
     const cookies = headers.get("cookie") ?? ""
     if (cookies.AuthorizationToken) {

@@ -1,5 +1,6 @@
 <script context="module">
     import {goto} from "$app/navigation";
+    import {jwt} from "../../store.js";
 
     let username = "";
     let password = "";
@@ -10,6 +11,10 @@
             password: password,
         };
 
+        let response = {
+            token: ""
+        }
+
         let body = JSON.stringify(user);
         console.log(body);
         const res = await fetch("https://news.wingbuddies.de:8087/login", {
@@ -17,7 +22,8 @@
             body: body,
         });
         if (res.ok) {
-            console.log(res.json())
+            const response = await res.json();
+            jwt.update((s) => response.token);
             goto("/");
         } else {
             console.log("error logging in");
