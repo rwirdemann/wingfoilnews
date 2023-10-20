@@ -1,7 +1,6 @@
 <script>
 import Header from "./Header.svelte";
 
-export const prerender = true;
 </script>
 
 <div class="container mt-2">

@@ -7,8 +7,6 @@ export async function handle({event, resolve}) {
     if (cookies.AuthorizationToken) {
         const token = cookies.AuthorizationToken.split(" ")[1];
         console.log("Token: " + token)
-    } else {
-        console.log("Request contains no AuthorizationToken")
     }
 
     const response = await resolve(event);

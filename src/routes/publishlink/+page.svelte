@@ -56,6 +56,8 @@
 <form>
     <div class="mb-3">
         <label for="title" class="form-label">Title</label>
+
+        <!-- svelte-ignore a11y-autofocus -->
         <input class="form-control" bind:value={title} id="title" placeholder="e.g. Cold Hawaii Games" required autofocus/>
     </div>
 
