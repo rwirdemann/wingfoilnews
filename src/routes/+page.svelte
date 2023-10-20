@@ -1,10 +1,10 @@
 <script>
     import Link from "../components/Link.svelte";
-    import {jwt} from "../store.js";
 
     export let data = [];
     const excluded = "site,group,blog"
 </script>
+
 <ol>
     {#if data.links !== null && data.links.length > 0}
         {#each data.links as l}
