@@ -1,5 +1,6 @@
 <script>
     import Time from "svelte-time";
+    import {jwt} from "../store.js";
 
     export let title = "";
     export let href = "";
@@ -23,5 +24,8 @@
         {#if tags}
             <small>({tags})</small>
         {/if}
+    {/if}
+    {#if $jwt}
+        <a href="#">Edit</a>
     {/if}
 </li>
