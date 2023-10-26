@@ -1,13 +1,12 @@
 <script>
-import Header from "./Header.svelte";
-
+    import Header from "./Header.svelte";
 </script>
 
 <div class="container mt-2">
-    <Header />
+    <Header/>
 
     <main>
-        <slot />
+        <slot/>
     </main>
 
     <footer>

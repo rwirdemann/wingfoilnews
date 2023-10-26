@@ -4,6 +4,7 @@ export async function handle({event, resolve}) {
     if (cookies && cookies.get('AuthorizationToken')) {
         const token = cookies.get('AuthorizationToken').split(" ")[1];
         console.log("Token: " + token)
+        event.locals.user = 'ralf'
     }
 
     const response = await resolve(event);
