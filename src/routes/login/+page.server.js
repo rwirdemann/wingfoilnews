@@ -23,11 +23,12 @@ export const actions = {
             body: body,
         });
         if (res.ok) {
+            console.log("login/page.server.js#post => setting cookie")
             const response = await res.json();
             event.cookies.set('AuthorizationToken', `Bearer ${response.token}`, {
                 httpOnly: true,
                 path: '/',
-                secure: true,
+                secure: false,
                 sameSite: 'strict',
                 maxAge: 60 * 60 * 24 // 1 day
             });
