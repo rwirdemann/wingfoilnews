@@ -20,10 +20,9 @@
             {#if data.user === undefined}
                 <li><a class="nav-link" href="/login">Login</a></li>
             {:else}
-                <li><a class="nav-link" on:click={doLogout} href="/">Logout</a></li>
+                <li><a class="nav-link" on:click={doLogout} href="/logout">Logout ({data.user})</a></li>
             {/if}
         </ul>
-        <p>User: {data.user}</p>
         <hr>
     </header>
     <main>

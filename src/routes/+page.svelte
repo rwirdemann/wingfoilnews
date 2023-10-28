@@ -9,7 +9,7 @@
     {#if data.links !== null && data.links.length > 0}
         {#each data.links as l}
             {#if !excluded.includes(l.tags)}
-                <Link title={l.title} href={l.uri} tags={l.tags} created={l.created}/>
+                <Link title={l.title} href={l.uri} tags={l.tags} created={l.created} user={data.user}/>
             {/if}
         {/each}
     {/if}

@@ -23,7 +23,7 @@ export const actions = {
             body: body,
         });
         if (res.ok) {
-            console.log("login/page.server.js#post => setting cookie")
+            console.log("logout/page.server.js#post => setting cookie")
             const response = await res.json();
             event.cookies.set('AuthorizationToken', `Bearer ${response.token}`, {
                 httpOnly: true,

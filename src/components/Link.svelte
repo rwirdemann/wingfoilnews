@@ -1,21 +1,25 @@
 <script>
     import Time from "svelte-time";
-    import {jwt} from "../store.js";
 
     export let title = "";
     export let href = "";
     export let tags = ""
     export let created = new Date();
     export let details = true
+    export let user = ""
 
     function extractDomain(uri) {
         let url = new URL(uri);
         return url.hostname;
     }
+
 </script>
 
 <li>
     <a {href} target="_blank">{title}</a>
+    {#if user}
+        <a href="#">Edit</a>
+    {/if}
     {#if details}
         <small style="color: gray;">via {extractDomain(href)}</small><br/>
         <small>1 vote by rawi
@@ -24,8 +28,5 @@
         {#if tags}
             <small>({tags})</small>
         {/if}
-    {/if}
-    {#if $jwt}
-        <a href="#">Edit</a>
     {/if}
 </li>
