@@ -1,6 +1,7 @@
 /** @type {import('@sveltejs/kit').Handle} */
 import {JWT_KEY} from '$env/static/private';
-import {verify} from "jsonwebtoken";
+import pkg from 'jsonwebtoken';
+const { verify } = pkg;
 
 export async function handle({event, resolve}) {
     console.log("hook.server.js#handle")
