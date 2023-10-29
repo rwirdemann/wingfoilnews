@@ -1,6 +1,9 @@
 /** @type {import('@sveltejs/kit').Handle} */
+import {JWT_KEY} from '$env/static/private';
+
 export async function handle({event, resolve}) {
     console.log("hook.server.js#handle")
+    console.log("hook.server.js#handle JWT_KEY " + JWT_KEY)
     const cookies = event.cookies
     let all = cookies.getAll()
     if (cookies && cookies.get('AuthorizationToken')) {
