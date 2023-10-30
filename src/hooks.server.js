@@ -12,9 +12,12 @@ export async function handle({event, resolve}) {
         const token = cookies.get('AuthorizationToken').split(" ")[1];
         console.log(token)
         verify(token, JWT_KEY, function (err, decoded) {
-            console.log("hook.server.js#handle err " + err)
-            console.log("hook.server.js#handle decoded " + decoded)
-            console.log("hook.server.js#handle decoded " + decoded.user)
+            if (err) {
+                console.log("hook.server.js#handle err " + err)
+            } else {
+                console.log("hook.server.js#handle decoded " + decoded)
+                console.log("hook.server.js#handle decoded " + decoded.user)
+            }
         });
         event.locals.user = 'ralf'
     } else {
