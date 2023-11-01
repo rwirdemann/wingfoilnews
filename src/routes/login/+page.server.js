@@ -18,7 +18,7 @@ export const actions = {
         };
 
         let body = JSON.stringify(user);
-        const res = await fetch("https://news.wingbuddies.de:8087/login", {
+        const res = await fetch("https://news.wingbuddies.de:8087/sessions", {
             method: "POST",
             body: body,
         });

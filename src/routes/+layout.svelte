@@ -9,7 +9,7 @@
 
 <div class="container mt-2">
     <header>
-        <h1>Wingfoil News 0.2</h1>
+        <h1>Wingfoil News</h1>
         <ul class="nav">
             <li><a class="nav-link" href="/">News</a></li>
             <li><a class="nav-link" href="/publishlink">Publish</a></li>
