@@ -13,7 +13,7 @@ export const actions = {
         }
 
         let user = {
-            username: formData.username,
+            name: formData.username,
             password: formData.password,
         };
 
@@ -34,7 +34,7 @@ export const actions = {
             });
             throw redirect(302, '/');
         } else {
-            console.log("error logging in");
+            console.log("error logging in. http status: " + res.status);
         }
     }
 };
