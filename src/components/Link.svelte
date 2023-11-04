@@ -1,6 +1,8 @@
 <script>
     import Time from "svelte-time";
+    import {goto} from "$app/navigation";
 
+    export let id = 0;
     export let title = "";
     export let href = "";
     export let tags = ""
@@ -13,15 +15,22 @@
         return url.hostname;
     }
 
+    function doPatch(id) {
+        alert("Publish: " + id)
+
+    }
 </script>
 
 <li>
     <a {href} target="_blank">{title}</a>
-    {#if user}
-        <a href="#">Edit</a>
-    {/if}
     {#if details}
-        <small style="color: gray;">via {extractDomain(href)}</small><br/>
+        <small style="color: gray;">via {extractDomain(href)}</small>
+        {#if user}
+            <button on:click={() => doPatch(id)} class="btn btn-outline-primary btn-sm">
+                Publish
+            </button>
+        {/if}
+        <br/>
         <small>1 vote by rawi
             <Time relative timestamp={created}/>
         </small>
