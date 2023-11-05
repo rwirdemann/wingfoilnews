@@ -36,6 +36,7 @@
         let link = {
             title: title,
             uri: uri,
+            draft: true,
             tags: toArray(tags)
         };
 
