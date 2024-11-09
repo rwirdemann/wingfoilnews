@@ -15,11 +15,17 @@
         </ul>
         <ul>
             <li><a href="/">News</a></li>
+            <li><a href="/new">Publish</a></li>
             <li><a href="/about">About</a></li>
         </ul>
     </nav>
 </header>
 <main class="container">
+    {{if hasError}}
+    <article style="color: red">
+        {{error}}
+    </article>
+    {{end}}
     {{template "_content" .}}
 </main>
 </body>

@@ -1,0 +1,33 @@
+{{define "_content"}}
+<div class="grid">
+    <div>
+        <form action="/publish" method="post">
+            <fieldset>
+                <label>
+                    Title
+                    <input
+                            name="title"
+                            placeholder="e.g. Cold Hawaii Games"
+                            required
+                    />
+                </label>
+                <label>
+                    URL
+                    <input
+                            name="url"
+                            placeholder="e.g. https://coldhawaiigames.com"
+                            required
+                    />
+                </label>
+            </fieldset>
+
+            <input
+                    type="submit"
+                    value="Publish"
+            />
+        </form>
+    </div>
+    <div></div>
+</div>
+
+{{end}}

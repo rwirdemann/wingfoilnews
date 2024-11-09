@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"embed"
 	"encoding/json"
 	"fmt"
@@ -40,7 +41,57 @@ func main() {
 		simpleweb.Render("templates/about.html", w, nil)
 	}, "GET")
 
+	simpleweb.Register("/new", func(w http.ResponseWriter, r *http.Request) {
+		simpleweb.Render("templates/new.html", w, nil)
+	}, "GET")
+
+	simpleweb.Register("/publish", func(w http.ResponseWriter, r *http.Request) {
+		title, err := simpleweb.FormValue(r, "title")
+		if err != nil {
+			simpleweb.Error(err.Error())
+		}
+
+		uri, err := simpleweb.FormValue(r, "url")
+		if err != nil {
+			simpleweb.Error(err.Error())
+		}
+
+		slog.Info("form values", "title", title, "url", uri)
+		err = postNews(title, uri, "https://news.wingbuddies.de:8087/links")
+		if err != nil {
+			slog.Error("error", "error", err)
+		}
+		simpleweb.Redirect(w, r, "/")
+
+	}, "POST")
+
 	simpleweb.Run()
+}
+
+func postNews(title, uri, url string) error {
+	link := wingfoilnews.Link{
+		Title: title,
+		URI:   uri,
+	}
+	bb, err := json.Marshal(link)
+	if err != nil {
+		return err
+	}
+	req, err := http.NewRequest("POST", url, bytes.NewBuffer(bb))
+	if err != nil {
+		return err
+	}
+	req.Header.Set("Content-Type", "application/json")
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusCreated {
+		return fmt.Errorf("bad status code: %d", resp.StatusCode)
+	}
+	return nil
 }
 
 func getNews(url string, target any) error {
