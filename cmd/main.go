@@ -9,6 +9,7 @@ import (
 	"github.com/rwirdemann/wingfoilnews"
 	"log/slog"
 	"net/http"
+	"strconv"
 	"time"
 )
 
@@ -22,19 +23,48 @@ func init() {
 	simpleweb.Init(templates, []string{"templates/layout.html"}, 3030)
 }
 
+const limit = 15 // links per page
+
+type pagination struct {
+	TotalRecords int `json:"total_record"`
+	CurrentPage  int `json:"current_page"`
+	TotalPages   int `json:"total_pages"`
+	NextPage     int `json:"next_page"`
+	PrevPage     int `json:"prev_page"`
+}
+
 func main() {
 	simpleweb.Register("/", func(w http.ResponseWriter, r *http.Request) {
+		page := 1
+		pageParam := r.URL.Query().Get("page")
+		if len(pageParam) > 0 {
+			if p, err := strconv.Atoi(pageParam); err == nil {
+				page = p
+			}
+		}
+
+		url := fmt.Sprintf("https://news.wingbuddies.de:8087/links?page=%d&limit=%d", page, limit)
 		var data = struct {
-			Links []wingfoilnews.Link
+			Links      []wingfoilnews.Link
+			Pagination pagination
 		}{}
-		err := getNews("https://news.wingbuddies.de:8087/links", &data)
+		err := getNews(url, &data)
 		if err != nil {
 			slog.Error("error", "error", err)
 			simpleweb.Error(err.Error())
 		}
+
+		// determine start number of first entry in link list
+		start := 1
+		if data.Pagination.CurrentPage > 1 {
+			start = (data.Pagination.CurrentPage-1)*limit + 1
+		}
+
 		simpleweb.Render("templates/index.html", w, struct {
-			Links []wingfoilnews.Link
-		}{Links: data.Links})
+			Links    []wingfoilnews.Link
+			Start    int
+			NextPage int
+		}{Links: data.Links, NextPage: data.Pagination.NextPage, Start: start})
 	}, "GET")
 
 	simpleweb.Register("/about", func(w http.ResponseWriter, r *http.Request) {

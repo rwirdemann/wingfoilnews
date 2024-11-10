@@ -1,5 +1,5 @@
 {{define "_content"}}
-<ol>
+<ol start="{{ .Start }}">
     {{range .Links}}
     <li>
         <a href="{{ .URI }}" >{{ .Title }}</a><br>
@@ -8,4 +8,5 @@
     </li>
     {{end}}
 </ol>
+<a href="/?page={{ .NextPage }}">Load more...</a>
 {{end}}
