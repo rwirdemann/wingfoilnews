@@ -33,7 +33,15 @@ type pagination struct {
 	PrevPage     int `json:"prev_page"`
 }
 
+type index struct {
+	Links    []wingfoilnews.Link
+	Start    int
+	NextPage int
+}
+
 func main() {
+
+	// index
 	simpleweb.Register("/", func(w http.ResponseWriter, r *http.Request) {
 		page := 1
 		pageParam := r.URL.Query().Get("page")
@@ -60,13 +68,32 @@ func main() {
 			start = (data.Pagination.CurrentPage-1)*limit + 1
 		}
 
-		simpleweb.Render("templates/index.html", w, struct {
-			Links    []wingfoilnews.Link
-			Start    int
-			NextPage int
-		}{Links: data.Links, NextPage: data.Pagination.NextPage, Start: start})
+		simpleweb.Render("templates/index.html", w, index{
+			Links:    data.Links,
+			Start:    start,
+			NextPage: data.Pagination.NextPage,
+		})
 	}, "GET")
 
+	// blogs
+	simpleweb.Register("/blogs", func(w http.ResponseWriter, r *http.Request) {
+		url := fmt.Sprintf("https://news.wingbuddies.de:8087/links?tags=blog")
+		var data = struct {
+			Links []wingfoilnews.Link
+		}{}
+		err := getNews(url, &data)
+		if err != nil {
+			slog.Error("error", "error", err)
+			simpleweb.Error(err.Error())
+		}
+
+		simpleweb.Render("templates/index.html", w, index{
+			Links: data.Links,
+			Start: 1,
+		})
+	}, "GET")
+
+	// about
 	simpleweb.Register("/about", func(w http.ResponseWriter, r *http.Request) {
 		simpleweb.Render("templates/about.html", w, nil)
 	}, "GET")
@@ -75,6 +102,7 @@ func main() {
 		simpleweb.Render("templates/new.html", w, nil)
 	}, "GET")
 
+	// publish
 	simpleweb.Register("/publish", func(w http.ResponseWriter, r *http.Request) {
 		title, err := simpleweb.FormValue(r, "title")
 		if err != nil {

@@ -8,5 +8,7 @@
     </li>
     {{end}}
 </ol>
+{{if ne .NextPage 0}}
 <a href="/?page={{ .NextPage }}">Load more...</a>
+{{end}}
 {{end}}
