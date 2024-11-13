@@ -10,6 +10,7 @@ import (
 	"log/slog"
 	"net/http"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -114,8 +115,13 @@ func main() {
 			simpleweb.Error(err.Error())
 		}
 
+		tags, err := simpleweb.FormValue(r, "tags")
+		if err != nil {
+			simpleweb.Error(err.Error())
+		}
+
 		slog.Info("form values", "title", title, "url", uri)
-		err = postNews(title, uri, "https://news.wingbuddies.de:8087/links")
+		err = postNews(title, uri, tags, "https://news.wingbuddies.de:8087/links")
 		if err != nil {
 			slog.Error("error", "error", err)
 		}
@@ -126,10 +132,11 @@ func main() {
 	simpleweb.Run()
 }
 
-func postNews(title, uri, url string) error {
+func postNews(title, uri, tags, url string) error {
 	link := wingfoilnews.Link{
 		Title: title,
 		URI:   uri,
+		Tags:  strings.Split(tags, ","),
 	}
 	bb, err := json.Marshal(link)
 	if err != nil {
